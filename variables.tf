@@ -78,6 +78,11 @@ variable "attach_to_load_balancer" {
   type        = string
   default     = "yes"
 }
+variable "has_extra_lb_port" {
+  description = "Whether or not this service has second exposed port."
+  type        = string
+  default     = "no"
+}
 variable "service_elb_name" {
   description = "The name of the ELB to configure to point at the service containers."
   type        = string

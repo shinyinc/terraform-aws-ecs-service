@@ -50,4 +50,15 @@ resource "aws_ecs_service" "service" {
       container_port   = coalesce(var.target_port, var.service_port)
     }
   }
+
+  dynamic "load_balancer" {
+    for_each = var.has_extra_lb_port == "yes" ? [coalesce(var.target_group_arn, var.service_elb_name)] : []
+
+    content {
+      elb_name         = var.service_elb_name
+      target_group_arn = var.target_group_arn
+      container_name   = coalesce(var.target_container_name, var.service_name)
+      container_port   = coalesce(var.target_port, var.service_extra_port)
+    }
+  }
 }
